@@ -2,6 +2,11 @@ import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AppStateProvider } from './state/AppState.jsx';
 import Layout, { DemoBar } from './components/Layout.jsx';
 import Login from './pages/Login.jsx';
+import Landing from './pages/Landing.jsx';
+import Backgrounds from './pages/Backgrounds.jsx';
+import Product from './pages/Product.jsx';
+import Explore from './pages/Explore.jsx';
+import AiEngine from './pages/AiEngine.jsx';
 import Pricing from './pages/Pricing.jsx';
 import Overview from './pages/Overview.jsx';
 import Deployments from './pages/Deployments.jsx';
@@ -19,7 +24,12 @@ export default function App() {
     <AppStateProvider>
       <HashRouter>
         <Routes>
-          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/" element={<Navigate to="/welcome" replace />} />
+          <Route path="/welcome" element={<Landing />} />
+          <Route path="/backgrounds" element={<Backgrounds />} />
+          <Route path="/product" element={<Product />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/ai-engine" element={<AiEngine />} />
           <Route path="/login" element={<Login />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route element={<Layout />}>

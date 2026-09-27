@@ -50,10 +50,11 @@ To stop it, go back to Terminal and press **Ctrl + C**.
 
 ## 🧭 What to look at
 
-Start at the **Login** screen. You can use any email and password (it's a demo), or click **Google**.
+Start at the **Welcome** page (the public website), then click **Sign in** to reach the **Login** screen. You can use any email and password (it's a demo), or click **Google**.
 
 | Screen | What it shows |
 |---|---|
+| **Welcome · Product · Strategies · AI Engine** | The public website: landing page, what the product does, the strategy store and the AI Regime Engine (coming soon) |
 | **Login / Sign up** | Email, Google, Apple, mobile OTP, 2-step verification, country at sign-up |
 | **Pricing** | Free / Starter / Pro / Elite plans. Switch **India ₹ · US $ · UAE AED** (the FAQs change per region too) |
 | **Overview** | Home screen. Changes for a **new**, **paper** or **live** user |
@@ -71,6 +72,7 @@ A dark bar at the bottom lets you switch the demo:
 
 - **User:** `New` · `Paper` · `Live`. See how the Overview changes for each type of user.
 - **AI engine:** `Coming soon` · `On`. Turn the AI Regime Engine on or off across all pages.
+- **Background:** on the public pages and Login, flip through 14 premium background images (‹ ›), or click **All** to open the Background lab.
 - **Theme:** 14 colour themes (light and dark). Use the ‹ › arrows or the dropdown to try them. Your choice is remembered.
 
 The **region picker** (🌐 top right) switches the currency and number format between India, US and UAE.

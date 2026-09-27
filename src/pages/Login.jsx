@@ -1,11 +1,15 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Icon, Logo } from '../components/ui.jsx';
+import { useApp } from '../state/AppState.jsx';
+import { bgStyle } from '../lib/backgrounds.js';
 
 const CODES = [['+91', 'India'], ['+1', 'United States'], ['+971', 'UAE']];
 
 export default function Login() {
   const nav = useNavigate();
+  const { bgs } = useApp();
+  const heroBg = bgStyle(bgs.login, 'linear-gradient(180deg, rgba(5,6,20,.55) 0%, rgba(5,6,20,.35) 40%, rgba(5,6,20,.85) 100%)');
   const [mode, setMode] = useState('signin');
   const [method, setMethod] = useState('email');
   const [otpSent, setOtpSent] = useState(false);
@@ -23,7 +27,7 @@ export default function Login() {
   return (
     <div style={{ minHeight: '100vh', display: 'grid', gridTemplateColumns: 'minmax(0, 520px) minmax(0, 1fr)' }} className="login-grid">
       <style>{'@media (max-width: 900px){.login-grid{grid-template-columns:1fr!important}.login-hero{display:none!important}}'}</style>
-      <aside className="login-hero" style={{ background: 'var(--navy)', color: '#fff', padding: 56, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+      <aside className="login-hero" style={{ background: 'var(--navy)', ...heroBg, color: '#fff', padding: 56, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
         <Logo light size={36} />
         <div className="col" style={{ gap: 28 }}>
           <h1 className="display" style={{ fontSize: 48, lineHeight: 1.08 }}>Build it. Test it.<br />Let it trade.</h1>
@@ -122,7 +126,7 @@ export default function Login() {
 
               {signup && (
                 <label className="row" style={{ alignItems: 'flex-start', fontSize: 13, color: 'var(--ink-2)', lineHeight: 1.45 }}>
-                  <input type="checkbox" style={{ marginTop: 2 }} /> I've read the <a href="#">Risk Disclosure</a> and agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.
+                  <input type="checkbox" style={{ marginTop: 2 }} /><span>I've read the <a href="#">Risk Disclosure</a> and agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.</span>
                 </label>
               )}
 

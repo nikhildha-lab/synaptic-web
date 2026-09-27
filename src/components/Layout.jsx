@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useApp } from '../state/AppState.jsx';
 import { REGIONS } from '../lib/format.js';
 import { Icon, Logo, Seg } from './ui.jsx';
 import { THEMES } from '../lib/themes.js';
+import { BGS, SPOTS, spotForPath } from '../lib/backgrounds.js';
 
 const LINKS = [
   ['/overview', 'Overview'],
@@ -69,7 +70,12 @@ function TopNav() {
 
 // Floating bar for demos: switch user type and the AI engine feature flag.
 export function DemoBar() {
-  const { stage, setStage, aiEngine, setAiEngine, theme, setTheme } = useApp();
+  const { stage, setStage, aiEngine, setAiEngine, theme, setTheme, bgs, setBg } = useApp();
+  const loc = useLocation();
+  const spot = spotForPath(loc.pathname);
+  const bi = spot ? bgs[spot] : -1;
+  // Cycle through: no image, 1 … 14
+  const stepBg = (d) => setBg(spot, ((bi + 1 + d + BGS.length + 1) % (BGS.length + 1)) - 1);
   const t = THEMES[theme];
   const step = (d) => setTheme((theme + d + THEMES.length) % THEMES.length);
   const [hidden, setHidden] = useState(false);
@@ -94,6 +100,18 @@ export function DemoBar() {
         {THEMES.map((x, i) => <option key={x.name} value={i}>{i + 1}. {x.name}{x.mode === 'dark' ? ' (dark)' : ''}</option>)}
       </select>
       <button type="button" className="arrow" onClick={() => step(1)} aria-label="Next theme">›</button>
+      <span style={{ color: 'var(--lilac-2, #C7C9FF)' }}>Background{spot ? ` · ${SPOTS.find((s) => s.key === spot).label}` : ''}</span>
+      {spot ? (
+        <>
+          <button type="button" className="arrow" onClick={() => stepBg(-1)} aria-label="Previous background">‹</button>
+          <select aria-label="Background image" value={bi} onChange={(e) => setBg(spot, Number(e.target.value))}>
+            <option value={-1}>No image</option>
+            {BGS.map((b, i) => <option key={b.file} value={i}>{b.n}. {b.name}</option>)}
+          </select>
+          <button type="button" className="arrow" onClick={() => stepBg(1)} aria-label="Next background">›</button>
+        </>
+      ) : null}
+      <Link to={`/backgrounds${spot ? `?spot=${spot}` : ''}`} style={{ color: '#fff', fontWeight: 600, fontSize: 13 }}>{spot ? 'All' : 'Open lab'}</Link>
       <button type="button" className="hide" onClick={() => setHidden(true)} aria-label="Hide demo controls">×</button>
     </div>
   );

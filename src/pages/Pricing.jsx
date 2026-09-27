@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Icon, Logo, Seg } from '../components/ui.jsx';
+import { Icon, Seg } from '../components/ui.jsx';
+import { MarketingShell } from '../components/Marketing.jsx';
 import { useApp } from '../state/AppState.jsx';
 import { FAQ, PLANS, PRICES } from '../data/dummy.js';
+import { bgStyle } from '../lib/backgrounds.js';
 
 const REGION_TABS = [{ value: 'IN', label: 'India · ₹' }, { value: 'US', label: 'US · $' }, { value: 'AE', label: 'UAE · AED' }];
 
 export default function Pricing() {
-  const { region, setRegion } = useApp();
+  const { region, setRegion, bgs } = useApp();
+  const band = bgs.pricing >= 0;
   const [yearly, setYearly] = useState(false);
   const [open, setOpen] = useState(0);
   const p = PRICES[region];
@@ -15,29 +18,25 @@ export default function Pricing() {
   const billed = (i) => (i === 0 ? 'Free forever · no card needed' : yearly ? `Billed ${p.yt[i]} yearly` : 'Billed monthly');
 
   return (
-    <div>
-      <header className="topnav" style={{ padding: '0 48px' }}>
-        <Link to="/login"><Logo /></Link>
-        <div className="row" style={{ gap: 24 }}>
-          <a href="#" style={{ color: 'var(--ink-2)', fontWeight: 500 }}>Features</a>
-          <a href="#" style={{ fontWeight: 600 }}>Pricing</a>
-          <Seg label="Region" value={region} onChange={(v) => { setRegion(v); setOpen(0); }} options={REGION_TABS} />
-          <Link to="/login" className="btn">Sign in</Link>
-        </div>
-      </header>
+    <MarketingShell>
 
-      <div className="page" style={{ maxWidth: 1200, gap: 28 }}>
-        <div className="col" style={{ alignItems: 'center', textAlign: 'center', gap: 14, paddingTop: 20 }}>
-          <span className="kicker" style={{ color: 'var(--brand)' }}>Pricing</span>
+      <div className="page" style={{ maxWidth: 1200, gap: 28, paddingTop: 24 }}>
+        <div className="col" style={band
+          ? { alignItems: 'center', textAlign: 'center', gap: 14, padding: '64px 24px 56px', borderRadius: 24, color: '#fff', ...bgStyle(bgs.pricing, 'radial-gradient(ellipse at center, rgba(5,6,20,.40) 0%, rgba(5,6,20,.70) 100%)') }
+          : { alignItems: 'center', textAlign: 'center', gap: 14, paddingTop: 20 }}>
+          <span className="kicker" style={{ color: band ? '#C7C9FF' : 'var(--brand)' }}>Pricing</span>
           <h1 className="display" style={{ fontSize: 46, lineHeight: 1.1 }}>Paper trade free. Pay when you go live.</h1>
-          <p className="page-sub" style={{ fontSize: 18, maxWidth: 640, margin: 0 }}>Plans grow with the number of strategies you run live — not with your profits.</p>
-          <div className="seg" style={{ marginTop: 8 }}>
+          <p className="page-sub" style={{ fontSize: 18, maxWidth: 640, margin: 0, ...(band ? { color: 'rgba(255,255,255,.8)' } : {}) }}>Plans grow with the number of strategies you run live — not with your profits.</p>
+          <div className="row wrap" style={{ gap: 12, justifyContent: 'center', marginTop: 8 }}>
+          <Seg label="Region" value={region} onChange={(v) => { setRegion(v); setOpen(0); }} options={REGION_TABS} />
+          <div className="seg">
             <button type="button" className={!yearly ? 'on' : ''} onClick={() => setYearly(false)}>Monthly</button>
             <button type="button" className={yearly ? 'on' : ''} onClick={() => setYearly(true)}>Yearly <span className="chip pos">2 months free</span></button>
           </div>
+          </div>
         </div>
 
-        <div className="banner dark" style={{ justifyContent: 'space-between', background: 'var(--navy)' }}>
+        <div className="banner dark glass-card" style={{ justifyContent: 'space-between', background: 'linear-gradient(120deg, rgba(110,117,255,.30), rgba(10,12,34,.55))' }}>
           <span><b>Founding member offer:</b> Pro at <b>{p.founding}</b> / month, locked for life — first 500 members only.</span>
           <Link to="/login" className="btn white sm">Claim offer</Link>
         </div>
@@ -91,6 +90,6 @@ export default function Pricing() {
           <span className="muted" style={{ fontSize: 13 }}>Still have a question? <a href="#" style={{ fontWeight: 600 }}>Talk to us</a></span>
         </div>
       </div>
-    </div>
+    </MarketingShell>
   );
 }

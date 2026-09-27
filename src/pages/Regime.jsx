@@ -1,3 +1,4 @@
+import { bgStyle } from '../lib/backgrounds.js';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../state/AppState.jsx';
@@ -9,10 +10,10 @@ import { linePath, rng, sparkPath } from '../lib/charts.js';
 
 const COLORS = { Bullish: ['#17B26A', '#05603A', '#4ADE80'], Bearish: ['#F04438', '#912018', '#FF7A6E'], Neutral: ['#F79009', '#93370D', '#FDB022'] };
 const sgn = (v) => (v > 0.05 ? '#17B26A' : v < -0.05 ? '#F04438' : '#F79009');
-const labelOf = (v) => (v > 0.15 ? 'Bullish' : v < -0.15 ? 'Bearish' : 'Neutral');
+export const labelOf = (v) => (v > 0.15 ? 'Bullish' : v < -0.15 ? 'Bearish' : 'Neutral');
 
 // The "glowing brain": four data agents pulse into the regime core.
-function NeuralCore({ label, meta, weights }) {
+export function NeuralCore({ label, meta, weights }) {
   const [c, deep] = COLORS[label];
   const neurons = useMemo(() => {
     const r = rng(29);
@@ -105,7 +106,7 @@ function Indicators() {
 }
 
 export default function Regime() {
-  const { aiEngine, betaJoined, setBetaJoined } = useApp();
+  const { aiEngine, betaJoined, setBetaJoined, bgs } = useApp();
   const [profile, setProfile] = useState('intraday');
   const intra = profile === 'intraday';
   const weights = REGIME_GROUPS.map((g) => (intra ? g.wI : g.wP));
@@ -120,7 +121,7 @@ export default function Regime() {
 
       {aiEngine ? (
         <>
-          <div className="card dark" style={{ padding: 0, display: 'grid', gridTemplateColumns: 'minmax(0, 560px) minmax(0, 1fr)', gap: 0, overflow: 'hidden', borderRadius: 20 }}>
+          <div className="card dark" style={{ padding: 0, display: 'grid', gridTemplateColumns: 'minmax(0, 560px) minmax(0, 1fr)', gap: 0, overflow: 'hidden', borderRadius: 20, ...bgStyle(bgs.ai, 'linear-gradient(90deg, rgba(5,6,20,.35) 0%, rgba(5,6,20,.70) 55%, rgba(5,6,20,.82) 100%)') }}>
             <div style={{ padding: 8 }}><NeuralCore label={label} meta={meta} weights={weights} /></div>
             <div className="col" style={{ padding: '40px 44px 36px 8px', gap: 18 }}>
               <div className="row-between">
