@@ -86,3 +86,4 @@ src/
 - All numbers are made up and marked "Sample data" on screen.
 - Placeholders in `[BRACKETS]` (refund policy, exchange names, registration numbers) still need real answers.
 - Fonts load from Google Fonts. Without internet, the site falls back to system fonts.
+# synaptic-web
