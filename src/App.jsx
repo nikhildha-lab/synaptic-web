@@ -1,6 +1,6 @@
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AppStateProvider } from './state/AppState.jsx';
-import Layout from './components/Layout.jsx';
+import Layout, { DemoBar } from './components/Layout.jsx';
 import Login from './pages/Login.jsx';
 import Pricing from './pages/Pricing.jsx';
 import Overview from './pages/Overview.jsx';
@@ -35,6 +35,7 @@ export default function App() {
           </Route>
           <Route path="*" element={<Navigate to="/overview" replace />} />
         </Routes>
+        <DemoBar />
       </HashRouter>
     </AppStateProvider>
   );

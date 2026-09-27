@@ -72,7 +72,7 @@ export default function Library() {
               </div>
               <div className="col" style={{ gap: 6 }}>
                 <span className="display" style={{ fontSize: 21 }}>{s.name}</span>
-                <span style={{ fontSize: 14, lineHeight: 1.5, color: '#475467', minHeight: 42 }}>{s.what}</span>
+                <span style={{ fontSize: 14, lineHeight: 1.5, color: 'var(--ink-2)', minHeight: 42 }}>{s.what}</span>
               </div>
               <div className="grid g3" style={{ gap: 8, padding: '12px 0', borderTop: '1px solid var(--line-2)', borderBottom: '1px solid var(--line-2)' }}>
                 <div className="col" style={{ gap: 4 }}><span className="hint">Min capital</span><b style={{ fontSize: 16 }}>{fmt(s.cap)}</b></div>

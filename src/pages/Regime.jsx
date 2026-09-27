@@ -34,23 +34,23 @@ function NeuralCore({ label, meta, weights }) {
         <filter id="synGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6" result="b" /><feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
       </defs>
       <circle cx="280" cy="220" r="190" fill="url(#synHalo)" />
-      {neurons.map((n, i) => <line key={`l${i}`} x1={n.x} y1={n.y} x2={n.hub[0]} y2={n.hub[1]} stroke="#8B8FF5" strokeOpacity=".18" />)}
-      {neurons.map((n, i) => <circle key={`n${i}`} className="syn-twinkle" cx={n.x} cy={n.y} r={n.rad} fill="#C7C9FF" style={{ animationDelay: `${n.delay}s` }} />)}
-      <circle className="syn-spin" cx="280" cy="220" r="118" fill="none" stroke="#8B8FF5" strokeOpacity=".35" strokeDasharray="2 8" />
+      {neurons.map((n, i) => <line key={`l${i}`} x1={n.x} y1={n.y} x2={n.hub[0]} y2={n.hub[1]} strokeOpacity=".18" style={{ stroke: 'var(--lilac)' }} />)}
+      {neurons.map((n, i) => <circle key={`n${i}`} className="syn-twinkle" cx={n.x} cy={n.y} r={n.rad} style={{ fill: 'var(--lilac-2)', animationDelay: `${n.delay}s` }} />)}
+      <circle className="syn-spin" cx="280" cy="220" r="118" fill="none" strokeOpacity=".35" strokeDasharray="2 8" style={{ stroke: 'var(--lilac)' }} />
       {nodes.map(([x, y, id], i) => (
         <path key={id} className="syn-flow" d={`M${x} ${y} Q ${(x + 280) / 2} ${(y + 220) / 2 + (y < 220 ? -10 : 10)} 280 220`} fill="none" stroke={sgn(REGIME_GROUPS[i].score)} strokeWidth={weights[i] > 0.5 ? 4 : 2.2} strokeLinecap="round" />
       ))}
       <circle className="syn-pulse" cx="280" cy="220" r="58" fill="none" stroke={c} strokeWidth="2" />
       <circle className="syn-pulse2" cx="280" cy="220" r="58" fill="none" stroke={c} strokeWidth="1.5" />
       <g className="syn-breathe" filter="url(#synGlow)"><circle cx="280" cy="220" r="56" fill="url(#synCore)" /></g>
-      <circle cx="280" cy="220" r="42" fill="#0A0B1E" fillOpacity=".55" />
+      <circle cx="280" cy="220" r="42" fillOpacity=".55" style={{ fill: 'var(--night)' }} />
       <text x="280" y="216" textAnchor="middle" fontSize="13" fontWeight="800" fill="#fff" letterSpacing="1.5">{label.toUpperCase()}</text>
       <text x="280" y="236" textAnchor="middle" fontSize="13" fontWeight="600" fill="#fff" fillOpacity=".85">{meta > 0 ? '+' : '−'}{Math.abs(meta).toFixed(2)}</text>
       {nodes.map(([x, y, id, name], i) => (
         <g key={`node${id}`}>
-          <circle cx={x} cy={y} r="20" fill="#14163A" stroke={sgn(REGIME_GROUPS[i].score)} strokeWidth="2.5" filter="url(#synGlow)" />
+          <circle cx={x} cy={y} r="20" style={{ fill: 'var(--night-2)' }} stroke={sgn(REGIME_GROUPS[i].score)} strokeWidth="2.5" filter="url(#synGlow)" />
           <text x={x} y={y + 5} textAnchor="middle" fontSize="13" fontWeight="800" fill="#fff">{id}</text>
-          <text x={x} y={y < 220 ? y - 38 : y + 46} textAnchor="middle" fontSize="12" fontWeight="600" fill="#C7C9FF">{name} · {Math.round(weights[i] * 100)}%</text>
+          <text x={x} y={y < 220 ? y - 38 : y + 46} textAnchor="middle" fontSize="12" fontWeight="600" style={{ fill: 'var(--lilac-2)' }}>{name} · {Math.round(weights[i] * 100)}%</text>
         </g>
       ))}
     </svg>
@@ -65,7 +65,7 @@ function History({ ai }) {
   bands.forEach((c) => { v += (c === 'U' ? 0.55 : c === 'D' ? -0.6 : 0) + (r() - 0.5) * 1.6; pts.push(v); });
   const min = Math.min(...pts);
   const line = linePath(pts.map((p) => p - min), 1344, 240, 20);
-  const bg = { U: '#D1FADF', M: '#FEF0C7', D: '#FEE4E2' };
+  const bg = { U: 'var(--pos-soft)', M: 'var(--warn-soft)', D: 'var(--neg-soft)' };
   const names = ai ? ['Bullish', 'Neutral', 'Bearish'] : ['Uptrend', 'Choppy', 'Downtrend'];
   return (
     <div className="card">
@@ -76,7 +76,7 @@ function History({ ai }) {
       <div style={{ position: 'relative', height: 240, borderRadius: 10, overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, display: 'flex' }}>{bands.map((c, i) => <div key={i} style={{ flex: 1, background: bg[c] }} />)}</div>
         <svg width="100%" height="240" viewBox="0 0 1344 240" preserveAspectRatio="none" style={{ position: 'absolute', inset: 0 }} role="img" aria-label="Nifty price over 60 sessions with regime shading">
-          <path d={line.d} fill="none" stroke="#101828" strokeWidth="2.2" vectorEffect="non-scaling-stroke" />
+          <path d={line.d} fill="none" stroke="currentColor" strokeWidth="2.2" vectorEffect="non-scaling-stroke" style={{ color: 'var(--ink)' }} />
         </svg>
       </div>
       <div className="row-between hint"><span>60 sessions ago</span><span>Nifty 50</span><span>Today</span></div>
@@ -144,7 +144,7 @@ export default function Regime() {
                 <div className="row-between" style={{ fontSize: 12, color: '#A3A6C8' }}><span>Bearish −1</span><span>Neutral</span><span>Bullish +1</span></div>
               </div>
               <div className="row" style={{ padding: '16px 18px', background: 'var(--night-2)', border: '1px solid var(--night-line)', borderRadius: 14, alignItems: 'flex-start' }}>
-                <Icon name="sparkle" size={20} color="#8B8FF5" />
+                <Icon name="sparkle" size={20} color="var(--lilac)" />
                 <span style={{ fontSize: 15, lineHeight: 1.55, color: '#E6E7FB' }}>{REGIME_NARRATIVE[profile]}</span>
               </div>
               <div className="row wrap" style={{ marginTop: 'auto', gap: 18, fontSize: 13, color: '#A3A6C8' }}>
@@ -214,7 +214,7 @@ export default function Regime() {
               <div className="tile"><span className="k">4H · afternoon</span><b className="muted">Choppy</b></div>
               <div className="tile"><span className="k">Last close</span><b>23,070.90</b></div>
             </div>
-            <span style={{ fontSize: 14, lineHeight: 1.55, color: '#475467' }}>Based on Nifty's 5- and 8-period moving averages. Simple and fast — it tells you the trend, but not <i>why</i>, and it doesn't look at volatility, flows or global cues.</span>
+            <span style={{ fontSize: 14, lineHeight: 1.55, color: 'var(--ink-2)' }}>Based on Nifty's 5- and 8-period moving averages. Simple and fast — it tells you the trend, but not <i>why</i>, and it doesn't look at volatility, flows or global cues.</span>
           </div>
           <div className="card dark" style={{ padding: 28, gap: 16, borderRadius: 20, position: 'relative', overflow: 'hidden' }}>
             <div style={{ position: 'absolute', right: -10, top: -10 }}><Orb size={170} ring /></div>

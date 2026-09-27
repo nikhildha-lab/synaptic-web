@@ -140,7 +140,7 @@ function NextStep({ stage, region }) {
   const NS = {
     new: { icon: 'compass', tone: 'var(--brand)', bg: 'var(--brand-soft)', title: 'Pick your first strategy', body: 'Start with paper trading — virtual money on real prices. Free, and no broker needed.', a: ['Browse strategies', '/library'], b: ['How it works', '#'] },
     paper: { icon: 'clock', tone: 'var(--brand)', bg: 'var(--brand-soft)', title: 'Nifty 9:25 Straddle can go live in 5 days', body: `Its paper results are in line with its backtest. Going live needs the Starter plan (${STARTER[region]}/mo) and a connected broker.`, a: ['Connect broker', '/brokers'], b: ['See paper results', '/library/nifty-925-straddle'] },
-    live: { icon: 'link', tone: '#B93815', bg: '#FFF6ED', title: 'Reconnect Upstox to resume 14 paused strategies', body: 'Upstox sessions expire daily. Turn on the 8:45 am reminder so this never catches you out.', a: ['Reconnect Upstox', '/brokers'], b: ['Set reminder', '/brokers'] },
+    live: { icon: 'link', tone: 'var(--warn)', bg: 'var(--warn-soft)', title: 'Reconnect Upstox to resume 14 paused strategies', body: 'Upstox sessions expire daily. Turn on the 8:45 am reminder so this never catches you out.', a: ['Reconnect Upstox', '/brokers'], b: ['Set reminder', '/brokers'] },
   }[stage];
   const done = stage === 'new' ? 0 : 1;
   return (
@@ -167,8 +167,8 @@ function NextStep({ stage, region }) {
               <div key={l} className="col" style={{ gap: 8 }}>
                 <div style={{ height: 4, borderRadius: 999, background: isDone ? 'var(--pos-2)' : cur ? (stage === 'paper' ? 'linear-gradient(90deg, var(--brand) 64%, var(--line) 64%)' : 'var(--brand)') : 'var(--line)' }} />
                 <div className="row" style={{ gap: 8 }}>
-                  <span style={{ width: 22, height: 22, borderRadius: 999, display: 'grid', placeItems: 'center', fontSize: 12, fontWeight: 700, color: isDone || cur ? '#fff' : '#667085', background: isDone ? 'var(--pos-2)' : cur ? 'var(--brand)' : 'var(--line-2)' }}>{isDone ? '✓' : i + 1}</span>
-                  <span style={{ fontSize: 14, fontWeight: cur ? 700 : 500, color: isDone || cur ? 'var(--ink)' : '#667085' }}>{l}</span>
+                  <span style={{ width: 22, height: 22, borderRadius: 999, display: 'grid', placeItems: 'center', fontSize: 12, fontWeight: 700, color: isDone || cur ? '#fff' : 'var(--muted)', background: isDone ? 'var(--pos-2)' : cur ? 'var(--brand)' : 'var(--line-2)' }}>{isDone ? '✓' : i + 1}</span>
+                  <span style={{ fontSize: 14, fontWeight: cur ? 700 : 500, color: isDone || cur ? 'var(--ink)' : 'var(--muted)' }}>{l}</span>
                 </div>
               </div>
             );
@@ -275,7 +275,7 @@ function NewUser() {
             {recs.map((c) => (
               <div key={c.id} className="card" style={{ gap: 12 }}>
                 <div className="row-between"><b style={{ fontSize: 17 }}>{c.name}</b><span className={`chip ${c.live ? 'pos' : 'gray'}`}>{c.live ? '✓ Live verified' : 'Paper proven'}</span></div>
-                <span style={{ fontSize: 14, lineHeight: 1.5, color: '#475467', minHeight: 42 }}>{c.what}</span>
+                <span style={{ fontSize: 14, lineHeight: 1.5, color: 'var(--ink-2)', minHeight: 42 }}>{c.what}</span>
                 <div className="grid g3" style={{ gap: 8, padding: '10px 0', borderTop: '1px solid var(--line-2)', borderBottom: '1px solid var(--line-2)' }}>
                   <div className="col" style={{ gap: 2 }}><span className="hint">Min capital</span><b>{fmt(c.cap)}</b></div>
                   <div className="col" style={{ gap: 2 }}><span className="hint">Risk</span><RiskBars risk={c.risk} /></div>

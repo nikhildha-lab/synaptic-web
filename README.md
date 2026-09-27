@@ -1,89 +1,114 @@
 # Synaptic — clickable prototype
 
-A working React website of the new Synaptic design, filled with **dummy data**.
-Nothing here connects to a broker or a real market. It's for showing partners the look and the flow.
+A working website of the new **Synaptic** algo-trading platform design, filled with **dummy data**.
+It doesn't connect to any broker or real market. It's for showing the look, the screens and the user flow.
 
-## Run it on your Mac
+---
 
-You need **Node.js 18 or newer**. Check with `node -v`.
-If you don't have it, install it from https://nodejs.org.
+## 🚀 How to open it (for partners)
+
+### Step 1: Install Node.js (one time only)
+
+Download the **LTS** version from **https://nodejs.org** and install it. It's like any normal app.
+
+To check it worked, open **Terminal** (Mac) or **Command Prompt** (Windows) and type:
 
 ```bash
-cd "~/Documents/Dummy website/synaptic-web"
-npm install        # first time only
-npm run dev        # opens http://localhost:5173 in your browser
+node -v
 ```
 
-Press `Ctrl + C` in the terminal to stop it.
+You should see a version number like `v20.x` or `v22.x`.
 
-## What's inside
+### Step 2: Download this project
 
-| Page | Link |
+**Option A: No Git needed**
+1. On this page, click the green **Code** button, then **Download ZIP**.
+2. Unzip it. You'll get a folder called `synaptic-web-main`.
+
+**Option B: With Git**
+```bash
+git clone https://github.com/nikhildha-lab/synaptic-web.git
+```
+
+### Step 3: Run it
+
+In Terminal, go into the project folder and start it:
+
+```bash
+cd synaptic-web          # or: cd synaptic-web-main   (if you downloaded the ZIP)
+npm install              # first time only, takes ~30 seconds
+npm run dev
+```
+
+Your browser opens **http://localhost:5173** automatically. If it doesn't, open that link yourself.
+
+To stop it, go back to Terminal and press **Ctrl + C**.
+
+> Tip for Mac: to open Terminal inside the folder, right-click the folder in Finder, then **Services**, then **New Terminal at Folder**.
+
+---
+
+## 🧭 What to look at
+
+Start at the **Login** screen. You can use any email and password (it's a demo), or click **Google**.
+
+| Screen | What it shows |
 |---|---|
-| Login / Sign up (Email, Google, Apple, Mobile OTP, 2-step) | `#/login` |
-| Pricing (India ₹ / US $ / UAE AED, questions change by region) | `#/pricing` |
-| Overview (new user, paper user, live user) | `#/overview` |
-| My deployments + Signals | `#/strategies` |
-| Strategy Library | `#/library` |
-| Strategy detail + Paper/Live deploy | `#/library/nifty-opening-breakout` |
-| Market Pulse → Regime (Classic or AI) | `#/market-pulse` |
-| Market Pulse → Sectors / Sector ranking | `#/market-pulse/sectors` |
-| Brokers | `#/brokers` |
-| Performance | `#/performance` |
+| **Login / Sign up** | Email, Google, Apple, mobile OTP, 2-step verification, country at sign-up |
+| **Pricing** | Free / Starter / Pro / Elite plans. Switch **India ₹ · US $ · UAE AED** (the FAQs change per region too) |
+| **Overview** | Home screen. Changes for a **new**, **paper** or **live** user |
+| **Strategies → Library** | Strategy "store": what each one does, min capital, risk, worst loss, proof |
+| **Strategy detail** | Backtest / paper / live proof, "how it does in each market", Paper → Live deploy with safety checks |
+| **Strategies → My deployments / Signals** | Running strategies and daily signals |
+| **Market Pulse → Regime** | Market regime: Classic today, **AI Regime Engine** (glowing brain) when switched on |
+| **Market Pulse → Sectors** | Sector strength, strongest/weakest stocks, sector ranking |
+| **Performance** | P&L chart, P&L by market regime, per-strategy results |
+| **Brokers** | Connected broker accounts and daily login reminder |
 
-### Demo controls
+### 🎛️ Demo controls (bottom of the screen)
 
-A dark bar at the bottom of every app page lets you switch:
+A dark bar at the bottom lets you switch the demo:
 
-- **User type:** New, Paper or Live. The Overview changes for each.
-- **AI engine:** Coming soon or On. This flips the AI Regime Engine feature flag across the Overview, Library, Strategy detail, Deployments, Performance and Market Pulse.
+- **User:** `New` · `Paper` · `Live`. See how the Overview changes for each type of user.
+- **AI engine:** `Coming soon` · `On`. Turn the AI Regime Engine on or off across all pages.
+- **Theme:** 14 colour themes (light and dark). Use the ‹ › arrows or the dropdown to try them. Your choice is remembered.
 
-The **region picker** (top right) switches the currency and number format between India, US and UAE.
+The **region picker** (🌐 top right) switches the currency and number format between India, US and UAE.
 
-## Share it with partners on GitHub
+---
 
-1. Create an empty repository on github.com, for example `synaptic-web`. It should be **Private**.
-2. In the terminal, run these commands. Replace `YOUR-USERNAME` with your GitHub username.
+## ❓ Common problems
 
-```bash
-cd "~/Documents/Dummy website/synaptic-web"
-git init
-git add .
-git commit -m "Synaptic prototype with dummy data"
-git branch -M main
-git remote add origin https://github.com/YOUR-USERNAME/synaptic-web.git
-git push -u origin main
-```
+| Problem | Fix |
+|---|---|
+| `node: command not found` / `npm: command not found` | Node.js isn't installed. Do Step 1, then close and reopen Terminal |
+| `Port 5173 is already in use` | Another copy is running. Close it (Ctrl + C) or open the link it prints instead |
+| Page is blank | Make sure you ran `npm install` first, then `npm run dev` again |
+| Fonts look plain | You're offline. The fonts load from Google Fonts |
 
-3. On GitHub, go to **Settings → Collaborators** and invite your partners.
+---
 
-### Optional: give partners a live link (GitHub Pages)
+## 💬 Feedback
 
-```bash
-npm run build
-```
+Please note your feedback **page by page**, for example "Pricing: ...", "Overview (new user): ...".
+You can open an **Issue** on this repo (**Issues** tab, then **New issue**), or send it to Nikhil directly.
 
-This creates a `dist` folder. You can host that folder on any static host.
-- **Netlify Drop:** drag the `dist` folder onto https://app.netlify.com/drop.
-- **GitHub Pages:** push `dist` to a `gh-pages` branch.
+---
 
-The site uses hash links (`#/overview`), so it works on any host without extra setup.
+## 🛠️ For developers
 
-## Where things live
+**Built with:** React 18 + Vite + React Router (hash routing, so it works on any static host).
 
 ```
 src/
   data/dummy.js        ← all sample numbers and text (edit here)
   pages/               ← one file per screen
-  components/          ← nav, demo bar, glowing orb, small UI pieces
-  state/AppState.jsx   ← region, user type, AI flag
+  components/          ← top nav, demo bar, glowing orb, small UI pieces
+  state/AppState.jsx   ← region, user type, AI feature flag
   lib/                 ← currency formatting, chart helpers
-  styles.css           ← colours, fonts, spacing
+  styles.css           ← colours, fonts, spacing (design tokens at the top)
 ```
 
-## Notes
-
-- All numbers are made up and marked "Sample data" on screen.
+- `npm run build` creates a `dist/` folder you can host anywhere (Netlify, Vercel, GitHub Pages).
 - Placeholders in `[BRACKETS]` (refund policy, exchange names, registration numbers) still need real answers.
-- Fonts load from Google Fonts. Without internet, the site falls back to system fonts.
-# synaptic-web
+- All numbers are made up and marked **Sample data** on screen.

@@ -4,9 +4,9 @@ export function Logo({ light = false, size = 30 }) {
   return (
     <span className="brand" style={light ? { color: '#fff' } : undefined}>
       <svg width={size} height={size} viewBox="0 0 36 36" aria-hidden="true">
-        <rect width="36" height="36" rx="9" fill={light ? '#fff' : '#16155A'} />
-        <path d="M9 23 L15 16 L20 20 L27 11" stroke={light ? '#16155A' : '#fff'} strokeWidth="2.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-        <circle cx="27" cy="11" r="2.4" fill={light ? '#16155A' : '#fff'} />
+        <rect width="36" height="36" rx="9" style={{ fill: light ? '#fff' : 'var(--logo-bg, #16155A)' }} />
+        <path d="M9 23 L15 16 L20 20 L27 11" strokeWidth="2.6" fill="none" strokeLinecap="round" strokeLinejoin="round" style={{ stroke: light ? '#16155A' : 'var(--logo-fg, #fff)' }} />
+        <circle cx="27" cy="11" r="2.4" style={{ fill: light ? '#16155A' : 'var(--logo-fg, #fff)' }} />
       </svg>
       <span>SYNAPTIC</span>
     </span>

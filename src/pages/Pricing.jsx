@@ -47,7 +47,7 @@ export default function Pricing() {
             <div key={plan.name} className="card" style={plan.popular ? { border: '2px solid var(--brand)', boxShadow: '0 12px 32px rgba(53,56,205,.14)', gap: 12 } : { gap: 12 }}>
               <div className="row-between" style={{ minHeight: 26 }}>
                 <span className="display" style={{ fontSize: 22 }}>{plan.name}</span>
-                {plan.popular && <span className="chip" style={{ background: 'var(--brand)', color: '#fff' }}>Most popular</span>}
+                {plan.popular && <span className="chip" style={{ background: 'var(--brand)', color: 'var(--on-brand)' }}>Most popular</span>}
               </div>
               <p className="muted" style={{ margin: 0, fontSize: 14, minHeight: 40 }}>{plan.tagline}</p>
               <div className="row" style={{ alignItems: 'baseline', gap: 4 }}>
@@ -84,7 +84,7 @@ export default function Pricing() {
                   <span>{q}</span>
                   <span style={{ width: 28, height: 28, borderRadius: 999, background: 'var(--line-2)', display: 'grid', placeItems: 'center', fontSize: 18, transform: `rotate(${open === i ? 45 : 0}deg)`, transition: 'transform .15s' }}>+</span>
                 </button>
-                {open === i && <p style={{ margin: 0, padding: '0 24px 20px', fontSize: 15, lineHeight: 1.6, color: '#475467' }}>{a}</p>}
+                {open === i && <p style={{ margin: 0, padding: '0 24px 20px', fontSize: 15, lineHeight: 1.6, color: 'var(--ink-2)' }}>{a}</p>}
               </div>
             ))}
           </div>

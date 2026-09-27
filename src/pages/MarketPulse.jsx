@@ -65,7 +65,7 @@ export default function MarketPulse() {
               <div className="grid g2" style={{ gap: '8px 24px' }}>
                 {SECTOR_RANK.map((n, i) => (
                   <div key={n} className="row" style={{ height: 36, borderBottom: '1px solid var(--line-2)', gap: 10 }}>
-                    <span style={{ width: 36, height: 24, borderRadius: 6, display: 'grid', placeItems: 'center', fontSize: 12, fontWeight: 700, background: i < 5 ? 'var(--pos)' : 'var(--line-2)', color: i < 5 ? '#fff' : '#475467' }}>#{i + 1}</span>
+                    <span style={{ width: 36, height: 24, borderRadius: 6, display: 'grid', placeItems: 'center', fontSize: 12, fontWeight: 700, background: i < 5 ? 'var(--pos)' : 'var(--line-2)', color: i < 5 ? '#fff' : 'var(--ink-2)' }}>#{i + 1}</span>
                     <span style={{ fontSize: 14 }}>{n}</span>
                   </div>
                 ))}

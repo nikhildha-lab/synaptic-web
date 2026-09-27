@@ -34,8 +34,8 @@ export default function Deployments() {
           </div>
 
           <div className="row wrap">
-            <div className="row" style={{ flex: 1, minWidth: 260, height: 44, padding: '0 14px', background: '#fff', border: '1px solid var(--line-strong)', borderRadius: 10 }}>
-              <Icon name="search" color="#667085" />
+            <div className="row" style={{ flex: 1, minWidth: 260, height: 44, padding: '0 14px', background: 'var(--surface)', border: '1px solid var(--line-strong)', borderRadius: 10 }}>
+              <Icon name="search" color="var(--muted)" />
               <input aria-label="Search strategies" placeholder="Search by name or symbol" style={{ flex: 1, border: 0, outline: 'none', fontFamily: 'inherit', fontSize: 15 }} />
             </div>
             <Pills value={filter} onChange={setFilter} options={[{ value: 'all', label: 'All 21' }, { value: 'running', label: 'Running 6' }, { value: 'out', label: 'Logged out 14' }, { value: 'paused', label: 'Paused 1' }]} />

@@ -5,7 +5,7 @@ import { Icon, RiskBars, SampleBadge, Seg } from '../components/ui.jsx';
 import { LIBRARY } from '../data/dummy.js';
 import { linePath, walk } from '../lib/charts.js';
 
-const REG_COLORS = [['var(--pos)', '#F0FDF4', '#ABEFC6'], ['var(--warn)', '#FFFAEB', '#FEDF89'], ['var(--neg)', '#FEF3F2', '#FECDCA']];
+const REG_COLORS = [['var(--pos)', 'var(--pos-soft)', 'var(--pos-line)'], ['var(--warn)', 'var(--warn-soft)', 'var(--warn-line)'], ['var(--neg)', 'var(--neg-soft)', 'var(--neg-line)']];
 const MONTHS = ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'];
 
 export default function StrategyDetail() {
@@ -90,10 +90,10 @@ export default function StrategyDetail() {
             <div className="grid g6" style={{ gap: 10 }}>
               {cur.stats.map(([k, v, t]) => <div key={k} className="tile" style={{ padding: '12px 14px' }}><span className="k">{k}</span><b className={t || ''} style={{ fontSize: 17 }}>{v}</b></div>)}
             </div>
-            <svg width="100%" height="220" viewBox="0 0 860 220" preserveAspectRatio="none" role="img" aria-label="Equity curve">
-              <line x1="0" x2="860" y1={chart.zeroY} y2={chart.zeroY} stroke="#D0D5DD" strokeDasharray="4 4" vectorEffect="non-scaling-stroke" />
-              <path d={chart.area} fill="#3538CD" fillOpacity="0.08" />
-              <path d={chart.d} fill="none" stroke="#3538CD" strokeWidth="2.5" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+            <svg width="100%" height="220" viewBox="0 0 860 220" preserveAspectRatio="none" role="img" aria-label="Equity curve" style={{ color: 'var(--brand)' }}>
+              <line x1="0" x2="860" y1={chart.zeroY} y2={chart.zeroY} stroke="var(--line-strong)" style={{ stroke: 'var(--line-strong)' }} strokeDasharray="4 4" vectorEffect="non-scaling-stroke" />
+              <path d={chart.area} fill="currentColor" fillOpacity="0.08" />
+              <path d={chart.d} fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
             </svg>
             <div className="col" style={{ gap: 8 }}>
               <b style={{ fontSize: 13, color: 'var(--ink-2)' }}>Month by month</b>
@@ -125,7 +125,7 @@ export default function StrategyDetail() {
             <h2 className="h2" style={{ fontSize: 20 }}>Know the risk</h2>
             <div className="grid g3" style={{ gap: 12 }}>
               {[['Worst drop from a high', `${s.worst}% (≈ ${fmt(Math.abs(s.worst) * 1000)} on ${fmt(100000)})`], ['Worst single day', '−3.1%'], ['Longest losing streak', '7 trades in a row']].map(([k, v]) => (
-                <div key={k} className="tile" style={{ background: '#FEF3F2' }}><span className="k" style={{ color: 'var(--neg-ink)' }}>{k}</span><b style={{ fontSize: 17, color: 'var(--neg-ink)' }}>{v}</b></div>
+                <div key={k} className="tile" style={{ background: 'var(--neg-soft)' }}><span className="k" style={{ color: 'var(--neg-ink)' }}>{k}</span><b style={{ fontSize: 17, color: 'var(--neg-ink)' }}>{v}</b></div>
               ))}
             </div>
             <ul style={{ margin: 0, paddingLeft: 20, fontSize: 14, lineHeight: 1.7, color: 'var(--ink-2)' }}>
@@ -144,8 +144,8 @@ export default function StrategyDetail() {
             <button type="button" style={{ flex: 1, height: 40 }} className={isLive ? 'on' : ''} onClick={() => setMode('live')}>Live trade</button>
           </div>
           {isLive
-            ? <div style={{ padding: '12px 14px', background: '#FFF6ED', borderRadius: 10, fontSize: 14, lineHeight: 1.5, color: '#7A2E0E' }}>Places real orders in your broker account with real money.</div>
-            : <div style={{ padding: '12px 14px', background: 'var(--brand-soft)', borderRadius: 10, fontSize: 14, lineHeight: 1.5, color: '#2D31A6' }}>Runs with virtual money on real market prices. No broker needed. Free on every plan.</div>}
+            ? <div style={{ padding: '12px 14px', background: 'var(--warn-soft)', borderRadius: 10, fontSize: 14, lineHeight: 1.5, color: 'var(--ink)' }}>Places real orders in your broker account with real money.</div>
+            : <div style={{ padding: '12px 14px', background: 'var(--brand-soft)', borderRadius: 10, fontSize: 14, lineHeight: 1.5, color: 'var(--ink)' }}>Runs with virtual money on real market prices. No broker needed. Free on every plan.</div>}
           <div className="field"><label htmlFor="cap">Capital</label><input id="cap" className="input" defaultValue={fmt(s.cap)} style={{ fontWeight: 600, fontSize: 16 }} /><span className="hint">Minimum {fmt(s.cap)}</span></div>
           <div className="field"><label htmlFor="dl">Stop for the day if I lose</label><input id="dl" className="input" defaultValue={`${fmt(s.cap * 0.03)} (3%)`} /></div>
 
@@ -163,7 +163,7 @@ export default function StrategyDetail() {
                 <div className="row" style={{ gap: 6 }}>
                   {names.map((n, i) => (
                     <button key={n} type="button" onClick={() => setAllow({ ...allow, [i]: !allow[i] })} aria-pressed={allow[i]}
-                      style={{ flex: 1, height: 36, borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: 'pointer', ...(allow[i] ? { background: REG_COLORS[i][1], border: `1px solid ${REG_COLORS[i][2]}`, color: REG_COLORS[i][0] } : { background: 'transparent', border: `1px dashed ${aiEngine ? '#4A4E8A' : 'var(--line-strong)'}`, color: aiEngine ? '#A3A6C8' : '#667085' }) }}>
+                      style={{ flex: 1, height: 36, borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: 'pointer', ...(allow[i] ? { background: REG_COLORS[i][1], border: `1px solid ${REG_COLORS[i][2]}`, color: REG_COLORS[i][0] } : { background: 'transparent', border: `1px dashed ${aiEngine ? '#4A4E8A' : 'var(--line-strong)'}`, color: aiEngine ? '#A3A6C8' : 'var(--muted)' }) }}>
                       {allow[i] ? '✓' : '✕'} {n}
                     </button>
                   ))}
